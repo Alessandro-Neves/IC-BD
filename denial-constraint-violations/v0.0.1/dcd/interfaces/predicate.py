@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 from ..types.predicate import PREDICATE_OPERATOR, PredicateComponent
 
-__all__ = ["IConstraint"]
-
 class IPredicate(ABC):
   
   @abstractmethod

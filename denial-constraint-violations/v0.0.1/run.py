@@ -1,19 +1,23 @@
 from dcd.interfaces.predicate import IPredicate
 from dcd.types.predicate import PREDICATE_OPERATOR, PredicateComponent
+from dataclasses import dataclass
 
+
+@dataclass
 class Predicate(IPredicate): 
-  def __init__(self, constraint: str) -> None:
-    self.constraint: str = constraint
-  
+  _constraint: str
+
   def get_operator(self) -> PREDICATE_OPERATOR:
-    return self.constraint
+    return self._constraint
   
   def get_left_side(self) -> PredicateComponent:
-    return PredicateComponent(self.constraint, False)
+    return PredicateComponent(self._constraint, False)
   
   def get_right_side(self) -> PredicateComponent:
-    return PredicateComponent(self.constraint, True)
+    return PredicateComponent(self._constraint, True)
   
-p = Predicate()
+predicate = Predicate('t1.name > t2.name')
+dc_buffer = DCBuffer('dcs.txt')
 
-print(1)
+
+print(dc_buffer.get_all())

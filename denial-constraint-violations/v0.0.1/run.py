@@ -1,5 +1,6 @@
 from dcd.interfaces.predicate import IPredicate
 from dcd.types.predicate import PREDICATE_OPERATOR, PredicateComponent
+from dcd.core.dc_buffer import DCBuffer
 from dataclasses import dataclass
 
 
@@ -17,7 +18,7 @@ class Predicate(IPredicate):
     return PredicateComponent(self._constraint, True)
   
 predicate = Predicate('t1.name > t2.name')
-dc_buffer = DCBuffer('dcs.txt')
 
+dc_buffer = DCBuffer('data.csv')
 
 print(dc_buffer.get_all())

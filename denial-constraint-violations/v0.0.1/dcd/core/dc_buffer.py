@@ -1,4 +1,4 @@
-from dcd.interfaces.dc_buffer import IDCBuffer
+from ..interfaces.dc_buffer import IDCBuffer
 
 class DCBuffer(IDCBuffer):
   _dcs: list[list[str]]

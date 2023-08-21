@@ -1,0 +1,7 @@
+t1.salario > t2.salario,t1.ano < t2.ano
+# t1.salario > t2.salario,t1.ano < t2.ano
+# t1.salario > t2.salario,t1.ano >= 2023
+# t1.salario = 50000
+
+
+# t1.salario < t1.bonus

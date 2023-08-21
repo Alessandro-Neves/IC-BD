@@ -1,0 +1,2 @@
+t1.salario > t2.salario,t1.ano < t2.ano
+# t1.salario < t1.bonus

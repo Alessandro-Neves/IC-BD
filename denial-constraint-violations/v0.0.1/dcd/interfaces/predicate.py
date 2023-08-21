@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ..types.predicate import PREDICATE_OPERATOR, PredicateComponent
+from dcd.types.predicate import PREDICATE_OPERATOR, PredicateComponent
 
 class IPredicate(ABC):
   

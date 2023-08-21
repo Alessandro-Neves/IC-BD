@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from .dc_buffer import IDCBuffer
-from .predicate import IPredicate
+from dcd.interfaces.dc_buffer import IDCBuffer
+from dcd.interfaces.predicate import IPredicate
 
 class IDCParser(ABC):
   @abstractmethod

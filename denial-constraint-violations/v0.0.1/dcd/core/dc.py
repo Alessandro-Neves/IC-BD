@@ -57,11 +57,10 @@ class DC(IDC):
     return match[0][3:] if (match := re.match(pattern, str)) else None
       
   def _get_col_name_or_scalar_value(self, str):
-    return self._get_col_name(str)
-    # if self._is_scalar(str):
-    #   return self._to_number_else_str(str)
+    if self._is_scalar(str):
+      return self._to_number_else_str(str)
 
-    # if col_name := self._get_col_name(str):
-    #   return col_name
-    # else:
-    #   raise Exception(f"DC::_get_col_name_or_scalar_value:\nreturned unexpected None value\nparam: {str}")
+    if col_name := self._get_col_name(str):
+      return col_name
+    else:
+      raise Exception(f"DC::_get_col_name_or_scalar_value:\nreturned unexpected None value\nparam: {str}")

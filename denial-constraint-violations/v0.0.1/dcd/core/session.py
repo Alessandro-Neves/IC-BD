@@ -20,7 +20,7 @@ class Session():
     self.dc_detector = dc_detector
     
   def _detect_violations(self) -> None:
-    self.noisy_cells = self.dc_detector.find_violations(self.dc)
+    self.noisy_cells = self.dc_detector.find_violations(self.data, self.dc)
     self.clean_cells = self.data[~self.data.apply(tuple, 1).isin(self.noisy_cells.apply(tuple, 1))] # type: ignore
   
   def find_violations(self) -> None:

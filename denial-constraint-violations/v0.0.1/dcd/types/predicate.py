@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 from dataclasses import dataclass
 
 class PREDICATE_OPERATOR(Enum):
@@ -16,7 +17,7 @@ def get_PREDICATE_OPERATOR_by_key(key):
   
 @dataclass
 class PredicateComponent:
-  col_name_or_value: any
+  col_name_or_value: Any
   is_scalar_value: bool
   
 Constraint = str

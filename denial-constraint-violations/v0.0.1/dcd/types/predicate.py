@@ -1,9 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
 
-from dcd.types.predicate import PredicateComponent
-from dcd.types.predicate import PREDICATE_OPERATOR
-
 class PREDICATE_OPERATOR(Enum):
   """Enum OPERATOR"""
   EQ = '='

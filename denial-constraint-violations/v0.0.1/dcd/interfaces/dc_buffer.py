@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from dcd.types.predicate import Constraint
 
 class IDCBuffer(ABC):
   @abstractmethod
@@ -6,5 +7,5 @@ class IDCBuffer(ABC):
     raise NotImplementedError
   
   @abstractmethod
-  def get_all(self) -> list[list[str]]:
+  def get_all(self) -> list[list[Constraint]]:
     raise NotImplementedError

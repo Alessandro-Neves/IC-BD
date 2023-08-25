@@ -15,8 +15,6 @@ def get_PREDICATE_OPERATOR_by_key(key):
   enums_by_keys = {i.value: i for i in PREDICATE_OPERATOR}
   return enums_by_keys.get(key)
 
-
-  
 @dataclass
 class PredicateComponent:
   col_name_or_value: Any
@@ -41,7 +39,6 @@ def invert_predicate(p: Predicate) -> Predicate:
     PREDICATE_OPERATOR.LT: PREDICATE_OPERATOR.GT,
     PREDICATE_OPERATOR.LTE: PREDICATE_OPERATOR.GTE
   }
-  
   
   return Predicate(
     p.right_side,

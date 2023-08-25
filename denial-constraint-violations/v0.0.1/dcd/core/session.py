@@ -2,6 +2,7 @@ import copy
 from pandas import DataFrame, read_csv
 
 from dcd.interfaces.dc import IDC
+from dcd.interfaces.dc_reader import IDCReader
 from dcd.interfaces.dc_detector import IDCDetector
 from dcd.types.common import AdjacencyList
 
@@ -12,10 +13,10 @@ class Session():
   dc: IDC
   dc_detector: IDCDetector
   
-  def __init__(self, data_address: str, dc: IDC, dc_detector: IDCDetector) -> None:
+  def __init__(self, data_address: str, dc_reader: IDCReader, dc_detector: IDCDetector) -> None:
     self.data = read_csv(data_address)
     
-    self.dc = dc
+    self.dc = dc_reader.pop_dc()
     self.dc_detector = dc_detector
     
   def detect_violations(self) -> None:

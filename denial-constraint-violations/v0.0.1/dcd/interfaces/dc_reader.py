@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 from dcd.types.predicate import Constraint
+from dcd.interfaces.dc import IDC
 
 class IDCReader(ABC):
   @abstractmethod
@@ -8,9 +9,9 @@ class IDCReader(ABC):
     raise NotImplementedError
   
   @abstractmethod
-  def get_str_dcs(self) -> List[List[Constraint]]:
+  def get_dcs(self) -> List[IDC]:
     raise NotImplementedError
   
   @abstractmethod
-  def pop_dc_str(self) -> List[str]:
+  def pop_dc(self) -> IDC:
     raise NotImplementedError

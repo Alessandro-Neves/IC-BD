@@ -2,18 +2,17 @@ import re
 from typing import List
 
 from dcd.types.predicate import Predicate, PredicateComponent, get_PREDICATE_OPERATOR_by_key
-from dcd.interfaces.dc_reader import IDCReader
 from dcd.interfaces.dc import IDC
 
 class DC(IDC):
   predicates: List[Predicate]
   
-  def __init__(self, dc_reader: IDCReader) -> None:
+  def __init__(self, str_predicates: List[str]) -> None:
     # sourcery skip: remove-unnecessary-else, swap-if-else-branches
     self.predicates = []
-    str_constraints = dc_reader.pop_dc_str()
+    # str_predicates = dc_reader.pop_dc_str()
 
-    for str_cs in str_constraints:
+    for str_cs in str_predicates:
       splitted_comps = str_cs.split(' ')
 
       if operator := get_PREDICATE_OPERATOR_by_key(splitted_comps[1]):    

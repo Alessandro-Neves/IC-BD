@@ -21,9 +21,6 @@ class DCDetector(IDCDetector):
     scalar_predicates = list(filter(lambda p: not p.is_relational, dc.get_predicates()))
     relational_predicates = [p for p in dc.get_predicates() if p not in scalar_predicates]
     
-    # df_filtered = df
-    
-    # tuples_qtd = df_filtered.shape[0]
     if bool(scalar_predicates):
       violations = self.__filter_by_scalar_predicates(df, scalar_predicates)
     
@@ -33,8 +30,8 @@ class DCDetector(IDCDetector):
       
       targets = violations if bool(scalar_predicates) else df2
       
-      # if bool(same_targets_rps):
-      #   violations = self.__filter_by_same_target_predicates(targets, df, same_targets_rps)
+      if bool(same_targets_rps):
+        violations = self.__filter_by_same_target_predicates(targets, df, same_targets_rps)
       
       if bool(diff_targets_rps):
         violations = self.__filter_by_diff_target_predicates(targets, df, diff_targets_rps)

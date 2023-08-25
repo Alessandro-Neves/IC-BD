@@ -10,7 +10,6 @@ class DC(IDC):
   def __init__(self, str_predicates: List[str]) -> None:
     # sourcery skip: remove-unnecessary-else, swap-if-else-branches
     self.predicates = []
-    # str_predicates = dc_reader.pop_dc_str()
 
     for str_cs in str_predicates:
       splitted_comps = str_cs.split(' ')

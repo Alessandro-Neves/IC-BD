@@ -32,7 +32,8 @@ class DCDetector(IDCDetector):
       
       if bool(same_targets_rps):
         violations = self.__filter_by_same_target_predicates(targets, df, same_targets_rps)
-      
+        targets = violations
+        
       if bool(diff_targets_rps):
         violations = self.__filter_by_diff_target_predicates(targets, df, diff_targets_rps)
         
@@ -83,12 +84,33 @@ class DCDetector(IDCDetector):
       conditions = [ operators_fn[rp.operator]
                   (t[rp.left_side.col_name_or_value], df, rp.right_side.col_name_or_value) 
                   for rp in rel_predicates]
-    
+      
+      conditions.append(df['id'] != t['id'])
+      
       violations_ids = df[reduce(lambda x, y: x & y, conditions)]['id'].to_list()
       targets.at[i, 'targets'].extend(violations_ids)
               
     return targets
   
-  # TODO: __filter_by_same_target_predicates
   def __filter_by_same_target_predicates(self, targets: DataFrame, df: DataFrame, rel_predicates: List[Predicate]) -> DataFrame:
-    raise Exception("DCDetector::__filter_by_same_target_predicates:\nnot implemented method")
+    operators_fn = {
+      PREDICATE_OPERATOR.GT: lambda col_a, df, col_b: df[col_a] > df[col_b],
+      PREDICATE_OPERATOR.LT: lambda col_a, df, col_b: df[col_a] < df[col_b],
+      PREDICATE_OPERATOR.EQ: lambda col_a, df, col_b: df[col_a] == df[col_b],
+      PREDICATE_OPERATOR.GTE: lambda col_a, df, col_b: df[col_a] >= df[col_b],
+      PREDICATE_OPERATOR.LTE: lambda col_a, df, col_b: df[col_a] <= df[col_b],
+      PREDICATE_OPERATOR.IQ: lambda col_a, df, col_b: df[col_a] != df[col_b],
+    }
+    
+    conditions = [ operators_fn[rp.operator]
+                (rp.left_side.col_name_or_value, df, rp.right_side.col_name_or_value) 
+                for rp in rel_predicates]
+    
+    conditions.append(df['id'].isin(targets['id']))
+    
+    res = df[reduce(lambda x, y: x & y, conditions)]
+        
+    for i, line in res.iterrows():
+      res.at[i, 'targets'].append(int(line['id'])) # type: ignore
+      
+    return res

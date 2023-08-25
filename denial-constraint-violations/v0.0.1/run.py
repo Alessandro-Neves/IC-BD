@@ -9,14 +9,20 @@ dc = DC(dc_reader)
 
 session = Session('data.csv', dc, dc_detector)
 
-session.find_violations()
+session.detect_violations()
 
+violations = session.get_violations()
 clean_data = session.get_clean_cells()
 noisy_data = session.get_noisy_cells()
 
-print(clean_data)
-print(noisy_data)
+# print(violations, end='\n\n')
+# print(clean_data, end='\n\n')
+# print(noisy_data, end='\n\n')
 
+print(session.data,  end='\n\n')
+
+for v in violations:
+  print(v)
 
 
 

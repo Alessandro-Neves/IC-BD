@@ -20,4 +20,4 @@ class DCReader(IDCReader):
     return self._dc
   
   def pop_dc_str(self) -> List[str]:
-    return self._dc.pop()
+    return self._dc.pop(0)

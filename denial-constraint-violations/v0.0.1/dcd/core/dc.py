@@ -27,8 +27,8 @@ class DC(IDC):
           col_name_or_value = self._get_col_name_or_scalar_value(splitted_comps[2])
         )
         
-        is_relational = p_left_side.is_scalar_value or p_right_side.is_scalar_value
-        has_diff_target = not (self._has_t1(splitted_comps[0]) and self._has_t1(splitted_comps[0])) if is_relational else False
+        is_relational = not p_left_side.is_scalar_value and not p_right_side.is_scalar_value
+        has_diff_target = not (self._has_t1(splitted_comps[0]) and self._has_t1(splitted_comps[2])) if is_relational else False
         
         predicate = Predicate(p_left_side, operator, p_right_side, is_relational, has_diff_target)
         self.predicates.append(predicate)

@@ -1,7 +1,7 @@
-t1.salario = t2.salario,t1.ano < t2.ano
-t1.bonus < 700000,t1.bonus >= 100000,t1.bonus > t1.salario
-t1.bonus > t1.salario,t1.departamento = Vendas
-t1.departamento = Marketing,t1.salario <= 70000
-t1.salario < 60000,t1.bonus >= 60000
+t1.salario = t2.salario,t1.departamento = Financeiro
 t1.salario > t2.salario,t1.ano < t2.ano
+t1.bonus = 0
+t1.salario < 60000,t1.bonus >= 60000
+t1.departamento = Marketing,t1.salario <= 70000
+t1.bonus > t1.salario,t1.departamento = Venda
 t1.salario = t2.salario,t1.ano < t2.ano,t1.bonus > t1.salario,t1.departamento = Vendas

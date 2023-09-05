@@ -1,2 +1,5 @@
+t1.duration_ms = 222747
+t1.duration_ms = t2.duration_ms,t1.danceability = t1.energy,t1.duration_ms = 222747
+t1.duration_ms = t2.duration_ms
+t1.duration_ms = t2.duration_ms,t1.danceability = t1.energy
 t1.duration_ms = t2.duration_ms,t1.release_date = t2.release_date
-t1.year = 1928,t1.release_date = 1928

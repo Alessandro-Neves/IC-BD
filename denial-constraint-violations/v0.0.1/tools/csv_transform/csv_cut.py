@@ -3,9 +3,9 @@ import random
 
 # Carrega o arquivo CSV
 nome_arquivo_entrada = 'testdatas/spotify_170k_id.csv'
-nome_arquivo_saida = 'testdatas/spotify_40k.csv'
+nome_arquivo_saida = 'testdatas/spotify_120k.csv'
 
-n_linhas_aleatorias = 40000  # Número de linhas aleatórias a serem selecionadas
+n_linhas_aleatorias = 120000  # Número de linhas aleatórias a serem selecionadas
 
 # Carrega o arquivo CSV para um DataFrame
 dataframe = pd.read_csv(nome_arquivo_entrada)

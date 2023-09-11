@@ -14,7 +14,8 @@ duck_dc_detector = DuckDCDetector()
 
 root_path = 'testdatas'
 ext = 'csv'
-datasets = ['spotify_1k', 'spotify_5k', 'spotify_10k', 'spotify_20k', 'spotify_30k', 'spotify_40k', 'spotify_80k', 'spotify_120k', 'spotify_170k_id']
+# datasets = ['spotify_1k', 'spotify_5k', 'spotify_10k', 'spotify_20k', 'spotify_30k', 'spotify_40k', 'spotify_80k', 'spotify_120k', 'spotify_170k_id']
+datasets = ['spotify_1k', 'spotify_5k', 'spotify_10k']
 
 results = [[], []]
 
@@ -44,6 +45,7 @@ dataframe = pandas.DataFrame(results, columns=datasets)
 nome_arquivo_saida = 'benchmark/results_many_detectors.csv'
 dataframe.to_csv(nome_arquivo_saida, index=False)
 
+exit(0)
 
 ################# Many DC, 1 DcDetector ###############################
 

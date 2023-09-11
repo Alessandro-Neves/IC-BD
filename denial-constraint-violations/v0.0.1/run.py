@@ -24,9 +24,9 @@ print(end_time - cur_time)
 violations = session.get_violations()
 print(len(violations), end='\n\n')
 
-# for v in violations:
-#   print(v)
-# print('\n')
+for v in violations:
+  print(v)
+print('\n')
 
 duck_dc_detector = DuckDCDetector()
 
@@ -43,7 +43,10 @@ print(end_time - cur_time)
 
 violations = session.get_violations()
 print(len(violations), end='\n\n')
-print(violations)
+
+for v in violations:
+  print(v)
+print('\n')
 
 # for v in violations:
 #   print(v)

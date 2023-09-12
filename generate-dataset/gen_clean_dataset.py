@@ -10,8 +10,9 @@ def apply_x_function(tupla, df):
   
   # t1.salary > t2.salary, t1.hiring_year > t2.hiring_year
   p_cond_a = (tupla['salary'] > df['salary']) & (tupla['hiring_year'] > df['hiring_year'])
+  p_cond_a_inv = (tupla['salary'] < df['salary']) & (tupla['hiring_year'] < df['hiring_year'])
   
-  if p_cond_a.any():
+  if not df[p_cond_a].empty or not df[p_cond_a_inv].empty:
     return False
   
     # Substitua esta lógica pela sua função x
@@ -26,7 +27,7 @@ with open('surnames.txt', 'r') as sobrenomes_file:
     sobrenomes = [line.strip() for line in sobrenomes_file]
 
 # Número de tuplas desejado (L)
-num_tuples = 20000
+num_tuples = 10000
 
 # Inicialização do DataFrame
 data = {'id': [], 'name': [], 'salary': [], 'bonus': [], 'hiring_year': [], 'dismissing_year': []}

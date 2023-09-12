@@ -7,12 +7,16 @@ from dcd.core.dc_detector import DCDetector
 from dcd.duck.dc_detector import DCDetector as DuckDCDetector
 
 # exit(0)
+NOISY = True
+
+DC_FILE = 'testdatas/employees-dc.txt'
+DATASET_FILE = 'testdatas/employees-5k-noisy.csv' if NOISY else 'testdatas/employees-5k.csv'
 
 dc_detector = DCDetector()
 
-dc_reader = DCReader('testdatas/spotify_170k_dc.txt')
 
-session = Session('testdatas/spotify_10k.csv', dc_reader, dc_detector)
+dc_reader = DCReader(DC_FILE)
+session = Session(DATASET_FILE, dc_reader, dc_detector)
 
 cur_time = time.monotonic()
 session.detect_violations()
@@ -27,12 +31,15 @@ print(len(violations), end='\n\n')
 for v in violations:
   print(v)
 print('\n')
+
+
+
+
 
 duck_dc_detector = DuckDCDetector()
 
-dc_reader = DCReader('testdatas/spotify_170k_dc.txt')
-
-session = Session('testdatas/spotify_10k.csv', dc_reader, duck_dc_detector)
+dc_reader = DCReader(DC_FILE)
+session = Session(DATASET_FILE, dc_reader, duck_dc_detector)
 
 cur_time = time.monotonic()
 session.detect_violations()
@@ -44,9 +51,9 @@ print(end_time - cur_time)
 violations = session.get_violations()
 print(len(violations), end='\n\n')
 
-for v in violations:
-  print(v)
-print('\n')
+# for v in violations:
+#   print(v)
+# print('\n')
 
 # for v in violations:
 #   print(v)

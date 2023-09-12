@@ -1,0 +1,12 @@
+python gen_clean_dataset.py  11966,64s user 576,26s system 99% cpu 3:30:11,72 total
+
+Satisfaz as seguintes DC's:
+
+DC:   t1.salary > t2.salary,t1.hiring_year > t2.hiring_year
+Mean: não existe nenhum funcionario t1 que possui o salario maior que t2 e que ao mesmo tempo foi contratado depois de t2
+
+DC:   t1.salary < t1.bonus
+Mean: não existe nenhum funcionario com salario menor que o bonus que recebe
+
+DC:   t1.hiring_year > t1.dismissing_year
+Mean: não existe nenhum funcionario com o ano de contratação maior que o ano de demissão

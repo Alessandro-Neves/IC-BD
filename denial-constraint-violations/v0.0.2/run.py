@@ -5,6 +5,7 @@ from dcd.core.session import Session
 from dcd.core.dc_reader import DCReader
 from dcd.core.dc_detector import DCDetector
 from dcd.duck.dc_detector import DCDetector as DuckDCDetector
+from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
 # exit(0)
 NOISY = True
@@ -51,9 +52,9 @@ print(end_time - cur_time)
 violations = session.get_violations()
 print(len(violations), end='\n\n')
 
-for v in violations:
-  print(v)
-print('\n')
+# for v in violations:
+#   print(v)
+# print('\n')
 
 # for v in violations:
 #   print(v)
@@ -73,3 +74,22 @@ print('\n')
 # print(clean_data, end='\n\n')
 # print('noisy cells:')
 # print(noisy_data, end='\n\n')
+
+polars_dc_detector = PolarsDCDetector()
+
+dc_reader = DCReader(DC_FILE)
+session = Session(DATASET_FILE, dc_reader, polars_dc_detector)
+
+cur_time = time.monotonic()
+session.detect_violations()
+end_time = time.monotonic()
+
+print(end_time - cur_time)
+
+
+violations = session.get_violations()
+# print(len(violations), end='\n\n')
+
+# for v in violations:
+#   print(v)
+# print('\n')

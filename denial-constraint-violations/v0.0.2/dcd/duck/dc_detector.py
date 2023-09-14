@@ -39,7 +39,7 @@ class DCDetector(IDCDetector):
     
     sql_query = "SELECT t1.id as id1, t2.id as id2 FROM T t1 JOIN T t2"
     
-    if not bool(relational_predicates):
+    if not bool(diff_targets_rps):
       sql_query += " ON t1.id = t2.id"
 
     if bool(diff_targets_rps):

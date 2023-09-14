@@ -10,7 +10,7 @@ from dcd.duck.dc_detector import DCDetector as DuckDCDetector
 NOISY = True
 
 DC_FILE = 'testdatas/employees-dc.txt'
-DATASET_FILE = 'testdatas/employees-5k-noisy.csv' if NOISY else 'testdatas/employees-5k.csv'
+DATASET_FILE = 'testdatas/employees-1k-noisy.csv' if NOISY else 'testdatas/employees-5k.csv'
 
 dc_detector = DCDetector()
 

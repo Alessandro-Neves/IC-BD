@@ -27,7 +27,7 @@ with open('surnames.txt', 'r') as sobrenomes_file:
     sobrenomes = [line.strip() for line in sobrenomes_file]
 
 # Número de tuplas desejado (L)
-num_tuples = 10000
+num_tuples = 40000
 
 # Inicialização do DataFrame
 data = {'id': [], 'name': [], 'salary': [], 'bonus': [], 'hiring_year': [], 'dismissing_year': []}

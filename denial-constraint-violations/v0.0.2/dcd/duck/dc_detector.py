@@ -19,7 +19,7 @@ class DCDetector(IDCDetector):
     violations = con.execute(sql_query).df()
     con.close()
     
-    print(violations.head(10))
+    # print(violations.head(10))
     
     pairs = []
     for i, t in violations.iterrows():

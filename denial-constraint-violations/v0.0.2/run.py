@@ -13,8 +13,8 @@ NOISY = True
 DC_FILE = 'testdatas/employees-dc.txt'
 DATASET_FILE = 'testdatas/employees-1k-noisy.csv' if NOISY else 'testdatas/employees-5k.csv'
 
+print("Pandas:")
 dc_detector = DCDetector()
-
 
 dc_reader = DCReader(DC_FILE)
 session = Session(DATASET_FILE, dc_reader, dc_detector)
@@ -23,20 +23,14 @@ cur_time = time.monotonic()
 session.detect_violations()
 end_time = time.monotonic()
 
-print(end_time - cur_time)
-
-
 violations = session.get_violations()
-print(len(violations), end='\n\n')
 
-# for v in violations:
-#   print(v)
-# print('\n')
-
+print(len(violations))
+print(end_time - cur_time)
+print(violations, end='\n\n')
 
 
-
-
+print("DuckDB:")
 duck_dc_detector = DuckDCDetector()
 
 dc_reader = DCReader(DC_FILE)
@@ -46,20 +40,11 @@ cur_time = time.monotonic()
 session.detect_violations()
 end_time = time.monotonic()
 
-print(end_time - cur_time)
-
-
 violations = session.get_violations()
-print(len(violations), end='\n\n')
 
-# for v in violations:
-#   print(v)
-# print('\n')
-
-# for v in violations:
-#   print(v)
-# print('\n')
-
+print(len(violations))
+print(end_time - cur_time)
+print(violations, end='\n\n')
 
 # clean_data = session.get_clean_cells()
 # noisy_data = session.get_noisy_cells()
@@ -75,6 +60,7 @@ print(len(violations), end='\n\n')
 # print('noisy cells:')
 # print(noisy_data, end='\n\n')
 
+print("Polars:")
 polars_dc_detector = PolarsDCDetector()
 
 dc_reader = DCReader(DC_FILE)
@@ -84,11 +70,12 @@ cur_time = time.monotonic()
 session.detect_violations()
 end_time = time.monotonic()
 
-print(end_time - cur_time)
-
-
 violations = session.get_violations()
-# print(len(violations), end='\n\n')
+
+print(len(violations))
+print(end_time - cur_time)
+print(violations, end='\n\n')
+
 
 # for v in violations:
 #   print(v)

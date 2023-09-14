@@ -2,7 +2,7 @@
 from pandas import DataFrame
 import polars as pl
 import copy
-from typing import List
+from typing import List, Tuple
 from functools import reduce
 from dcd.interfaces.dc import IDC
 from dcd.interfaces.dc_detector import IDCDetector
@@ -14,61 +14,56 @@ class DCDetector(IDCDetector):
   
   def find_violations(self, df: DataFrame, dc: IDC) -> PairIdList:  
     dfp = pl.DataFrame(df)  
-    
     df2 = dfp
-    tuples_qtd = df2.shape[0]
     
     scalar_predicates = list(filter(lambda p: not p.is_relational, dc.get_predicates()))
     relational_predicates = [p for p in dc.get_predicates() if p not in scalar_predicates]
     
-    violations = pl.DataFrame()
+    targets = pl.DataFrame()
+    
+    violations_pairs = []
+    
+    same_targets_violations_ids = []
     
     if bool(scalar_predicates):
-      violations = self.__filter_by_scalar_predicates(dfp, scalar_predicates)
-      print(len(violations))
-      # violations_ids = dfp.filter(pl.col("salary") < 10900) 
+      targets = self.__filter_by_scalar_predicates(dfp, scalar_predicates)
+      if not targets.is_empty():
+        same_targets_violations_ids.extend(targets['id'].to_pandas().tolist())
+    
+    use_violations_itself_ids = False
     
     if bool(relational_predicates):
       same_targets_rps = list(filter(lambda p: not p.has_diff_target, relational_predicates))
       diff_targets_rps = [p for p in relational_predicates if p not in same_targets_rps]
       
-      targets = violations if bool(scalar_predicates) else df2
-      
+      if not bool(scalar_predicates):
+        targets = df2
+   
       if bool(same_targets_rps):
-        violations = self.__filter_by_same_target_predicates(targets, dfp, same_targets_rps)
-        targets = violations
-        print("st", len(violations))
-        print(violations)
+        targets = self.__filter_by_same_target_predicates(targets, dfp, same_targets_rps)
+        
+        if not targets.is_empty():
+          same_targets_violations_ids.extend(targets['id'].to_pandas().tolist())
         
       if bool(diff_targets_rps):
-        violations_pairs_diff = self.__filter_by_diff_target_predicates(targets, dfp, diff_targets_rps)
-        print(len(violations_pairs_diff))
-    
-    return []
-    
-    if bool(relational_predicates):
-      same_targets_rps = list(filter(lambda p: not p.has_diff_target, relational_predicates))
-      diff_targets_rps = [p for p in relational_predicates if p not in same_targets_rps]
-      
-      targets = violations if bool(scalar_predicates) else df2
-      
-      if bool(same_targets_rps):
-        violations = self.__filter_by_same_target_predicates(targets, df, same_targets_rps)
-        targets = violations
+        [violations_main_ids, violations_pairs_diff] = self.__filter_by_diff_target_predicates(targets, dfp, diff_targets_rps)
         
-      if bool(diff_targets_rps):
-        violations = self.__filter_by_diff_target_predicates(targets, df, diff_targets_rps)
+        violations_pairs.extend(violations_pairs_diff)
         
-    adjacency_list = [(int(t['id']), t['targets']) for i , t in violations.iterrows()] # type: ignore
-    
-    adjacency_list_with_some = list(filter(lambda t: bool(t[1]), adjacency_list))  # type: ignore
-    
-    pairs = []
-    for t in adjacency_list_with_some:
-      t1 = t[0]
-      for t2 in t[1]:
-        pairs.append(tuple((t1, t2))) # type: ignore
-    return pairs
+        violations_its_self = [id for id in same_targets_violations_ids if id in violations_main_ids]
+        
+        if len(violations_its_self) > 0:
+          violations_pairs.extend([(id, id)for id in violations_its_self])
+      else:
+        use_violations_itself_ids = True
+    else:
+      use_violations_itself_ids = True
+        
+    if use_violations_itself_ids:
+      violations_pairs.extend([(id, id)for id in same_targets_violations_ids])
+      
+    # print(violations_pairs)
+    return violations_pairs
           
   def __filter_by_scalar_predicates(self, df: pl.DataFrame, scalar_predicates: List[Predicate]) -> DataFrame:
     if not bool(scalar_predicates):
@@ -98,7 +93,7 @@ class DCDetector(IDCDetector):
       
     return res
   
-  def __filter_by_diff_target_predicates(self, targets: pl.DataFrame, df: pl.DataFrame, rel_predicates: List[Predicate]) -> DataFrame:
+  def __filter_by_diff_target_predicates(self, targets: pl.DataFrame, df: pl.DataFrame, rel_predicates: List[Predicate]) -> [List[int], List[Tuple]]:
     
     operators_fn = {
       PREDICATE_OPERATOR.GT: lambda scalar, df, col: scalar > pl.col(col),
@@ -110,6 +105,7 @@ class DCDetector(IDCDetector):
     }
     
     violations_pairs = []
+    violations_main_ids = []
     
     for index, t in enumerate(targets.iter_rows(named=True)):
       conditions = [ operators_fn[rp.operator]
@@ -125,8 +121,9 @@ class DCDetector(IDCDetector):
       #   targets = targets.filter(pl.col("id") != t['id'])
       if bool(violations_ids):
         violations_pairs.extend((t['id'], v) for v in violations_ids)
+        violations_main_ids.append(t['id'])
       
-    return violations_pairs
+    return [violations_main_ids, violations_pairs]
   
   def __filter_by_same_target_predicates(self, targets: pl.DataFrame, df: pl.DataFrame, rel_predicates: List[Predicate]) -> DataFrame:
     operators_fn = {

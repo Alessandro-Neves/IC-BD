@@ -95,7 +95,11 @@ class DCDetector(IDCDetector):
       conditions.append(df['id'] != t['id'])
       
       violations_ids = df[reduce(lambda x, y: x & y, conditions)]['id'].to_list()
-      targets.at[i, 'targets'].extend(violations_ids)
+      
+      if len(violations_ids) > 0:
+        targets.at[i, 'targets'].extend(violations_ids)
+      else:
+        targets.at[i, 'targets'] = []
               
     return targets
   

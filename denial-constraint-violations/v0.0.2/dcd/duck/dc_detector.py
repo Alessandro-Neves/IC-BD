@@ -19,8 +19,6 @@ class DCDetector(IDCDetector):
     violations = con.execute(sql_query).df()
     con.close()
     
-    # print(violations.head(10))
-    
     pairs = []
     for i, t in violations.iterrows():
       pairs.append((int(t['id1']), int(t['id2'])))
@@ -66,12 +64,11 @@ class DCDetector(IDCDetector):
         else:
           sql_query += f" AND t1.{sps.left_side.col_name_or_value} {sps.operator.value} {sps.right_side.col_name_or_value}"
 
-    if not bool(scalar_predicates) and not bool (same_targets_rps):
+    if not bool(scalar_predicates) and not bool(same_targets_rps):
           sql_query += " AND t1.id <> t2.id"
 
     sql_query += ";"
 
-    print()
     print(sql_query, end="\n\n")
 
     return sql_query

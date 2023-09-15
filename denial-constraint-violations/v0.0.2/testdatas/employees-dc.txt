@@ -1,5 +1,8 @@
-t1.salary < t1.bonus
 t1.salary > 37800,t1.salary > t2.salary,t1.hiring_year > t2.hiring_year
+t1.salary > t2.salary,t1.hiring_year > t2.hiring_year
+t1.salary < t1.bonus
+t1.salary > t2.salary,t1.hiring_year > t2.hiring_year
+t1.salary < t1.bonus
 t1.salary > 37800
 t1.salary < t1.bonus
 t1.hiring_year > t1.dismissing_year

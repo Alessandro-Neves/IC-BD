@@ -6,28 +6,32 @@ from dcd.core.session import Session
 from dcd.core.dc_reader import DCReader
 from dcd.core.dc_detector import DCDetector
 from dcd.duck.dc_detector import DCDetector as DuckDCDetector
+from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
 ################ 1 DC, Many DcDetectors #########################
 
 dc_detector = DCDetector()
 duck_dc_detector = DuckDCDetector()
+polars_dc_detector = PolarsDCDetector()
 
 root_path = 'testdatas'
 ext = 'csv'
-# datasets = ['spotify_1k', 'spotify_5k', 'spotify_10k', 'spotify_20k', 'spotify_30k', 'spotify_40k', 'spotify_80k', 'spotify_120k', 'spotify_170k_id']
-datasets = ['spotify_1k', 'spotify_5k', 'spotify_10k']
 
-results = [[], []]
+datasets = ['employees-1k-noisy', 'employees-5k-noisy', 'employees-10k-noisy', 'employees-20k-noisy', 'employees-40k-noisy']
+
+results = [[], [], []]
 
 for dataset in datasets:
   
   dc_reader1 = DCReader('benchmark/dc.txt')
   dc_reader2 = DCReader('benchmark/dc.txt')
+  dc_reader3 = DCReader('benchmark/dc.txt')
 
   ss1 = Session(f'{root_path}/{dataset}.{ext}', dc_reader1, dc_detector)
-  ss2 = Session(f'{root_path}/{dataset}.{ext}', dc_reader2, duck_dc_detector)
+  ss2 = Session(f'{root_path}/{dataset}.{ext}', dc_reader3, polars_dc_detector)
+  ss3 = Session(f'{root_path}/{dataset}.{ext}', dc_reader2, duck_dc_detector)
 
-  spotify_sessions = [ ss1, ss2 ]
+  spotify_sessions = [ ss1, ss2, ss3 ]
 
   print(f"\nFor {dataset}:")
   for i, session in enumerate(spotify_sessions):

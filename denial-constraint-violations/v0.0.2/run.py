@@ -9,9 +9,10 @@ from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
 # exit(0)
 NOISY = True
+ALIAS = '40k'
 
 DC_FILE = 'testdatas/employees-dc.txt'
-DATASET_FILE = 'testdatas/employees-1k-noisy.csv' if NOISY else 'testdatas/employees-5k.csv'
+DATASET_FILE = f'testdatas/employees-{ALIAS}-noisy.csv' if NOISY else f'testdatas/employees-{ALIAS}.csv'
 
 print("Pandas:")
 dc_detector = DCDetector()
@@ -27,7 +28,8 @@ violations = session.get_violations()
 
 print(len(violations))
 print(end_time - cur_time)
-print(violations, end='\n\n')
+print(violations)
+print()
 
 
 print("DuckDB:")
@@ -44,7 +46,9 @@ violations = session.get_violations()
 
 print(len(violations))
 print(end_time - cur_time)
-print(violations, end='\n\n')
+# print(violations)
+print()
+
 
 # clean_data = session.get_clean_cells()
 # noisy_data = session.get_noisy_cells()
@@ -74,7 +78,8 @@ violations = session.get_violations()
 
 print(len(violations))
 print(end_time - cur_time)
-print(violations, end='\n\n')
+# print(violations)
+print()
 
 
 # for v in violations:

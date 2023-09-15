@@ -69,6 +69,6 @@ class DCDetector(IDCDetector):
 
     sql_query += ";"
 
-    print(sql_query, end="\n\n")
+    # print(sql_query, end="\n\n")
 
     return sql_query

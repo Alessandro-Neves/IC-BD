@@ -1,1 +1,1 @@
-t1.duration_ms > t2.duration_ms
+t1.salary < t1.bonus

@@ -1,2 +1,0 @@
-t1.Sex = t2.Sex,t1.Country = t2.Country
-t1.Sex = Male,t1.Country = United-States

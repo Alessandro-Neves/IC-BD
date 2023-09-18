@@ -6,3 +6,6 @@ tool-csv_cut:
 
 tool-generate_id:
 	python tools/csv_transform/generate_id.py
+
+run_benchmark:
+	python run_benchmark.py && cd benchmark && python plot.py

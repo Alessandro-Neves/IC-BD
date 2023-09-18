@@ -8,10 +8,10 @@ from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
 # exit(0)
 NOISY = True
-ALIAS = '1k'
+ALIAS = '1000'
 
-DC_FILE = 'testdatas/employees-dc.txt'
-DATASET_FILE = f'testdatas/employees-{ALIAS}-noisy.csv' if NOISY else f'testdatas/employees-{ALIAS}.csv'
+DC_FILE = 'testdatas/dcs/employees_dc.txt'
+DATASET_FILE = f'testdatas/dirty_datasets/employees_{ALIAS}.csv' if NOISY else f'testdatas/employees_{ALIAS}.csv'
 
 
 detectors = [

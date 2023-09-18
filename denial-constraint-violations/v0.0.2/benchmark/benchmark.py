@@ -16,7 +16,7 @@ duck_dc_detector = DuckDCDetector()
 duck_dc_detector_distinct = DuckDistinticDCDetector()
 polars_dc_detector = PolarsDCDetector()
 
-root_path = 'testdatas'
+root_path = 'testdatas/dirty_datasets'
 ext = 'csv'
 
 datasets = ['employees-1k-noisy', 'employees-5k-noisy', 'employees-10k-noisy', 'employees-20k-noisy', 'employees-40k-noisy']

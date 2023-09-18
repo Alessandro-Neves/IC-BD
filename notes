@@ -9,3 +9,7 @@ FACET repository: https://github.com/EduardoPena/fdcd
 
 Datasets:
 	airport: https://ourairports.com/data/
+
+
+Polar join with inequality:
+	https://github.com/pola-rs/polars/issues/6856

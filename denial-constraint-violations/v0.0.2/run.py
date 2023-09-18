@@ -8,7 +8,7 @@ from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
 # exit(0)
 NOISY = True
-ALIAS = '10k'
+ALIAS = '1k'
 
 DC_FILE = 'testdatas/employees-dc.txt'
 DATASET_FILE = f'testdatas/employees-{ALIAS}-noisy.csv' if NOISY else f'testdatas/employees-{ALIAS}.csv'
@@ -35,7 +35,7 @@ for i, detector in enumerate(detectors):
   
   violations = session.get_violations()
   
-  # print(len(violations))
+  print(len(violations))
   print(end_time - cur_time)
-  # print(violations)
+  print(violations)
   print()

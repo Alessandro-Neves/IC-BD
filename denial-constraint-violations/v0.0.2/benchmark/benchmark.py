@@ -5,13 +5,15 @@ from dcd.core.dc import DC
 from dcd.core.session import Session 
 from dcd.core.dc_reader import DCReader
 from dcd.core.dc_detector import DCDetector
-from dcd.duck.dc_detector import DCDetector as DuckDCDetector
 from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
+from dcd.duck.dc_detector import DCDetector as DuckDCDetector
+from dcd.duck.dc_detector_sql import DCDetector as DuckDistinticDCDetector
 
 ################ 1 DC, Many DcDetectors #########################
 
 dc_detector = DCDetector()
 duck_dc_detector = DuckDCDetector()
+duck_dc_detector_distinct = DuckDistinticDCDetector()
 polars_dc_detector = PolarsDCDetector()
 
 root_path = 'testdatas'
@@ -19,17 +21,19 @@ ext = 'csv'
 
 datasets = ['employees-1k-noisy', 'employees-5k-noisy', 'employees-10k-noisy', 'employees-20k-noisy', 'employees-40k-noisy']
 
-results = [[], [], []]
+results = [[], [], [], []]
 
 for dataset in datasets:
   
   dc_reader1 = DCReader('benchmark/dc.txt')
   dc_reader2 = DCReader('benchmark/dc.txt')
   dc_reader3 = DCReader('benchmark/dc.txt')
+  dc_reader4 = DCReader('benchmark/dc.txt')
 
   ss1 = Session(f'{root_path}/{dataset}.{ext}', dc_reader1, dc_detector)
-  ss2 = Session(f'{root_path}/{dataset}.{ext}', dc_reader3, polars_dc_detector)
-  ss3 = Session(f'{root_path}/{dataset}.{ext}', dc_reader2, duck_dc_detector)
+  ss2 = Session(f'{root_path}/{dataset}.{ext}', dc_reader2, polars_dc_detector)
+  ss3 = Session(f'{root_path}/{dataset}.{ext}', dc_reader3, duck_dc_detector)
+  # ss4 = Session(f'{root_path}/{dataset}.{ext}', dc_reader4, duck_dc_detector_distinct)
 
   spotify_sessions = [ ss1, ss2, ss3 ]
 

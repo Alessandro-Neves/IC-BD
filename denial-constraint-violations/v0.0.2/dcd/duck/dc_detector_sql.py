@@ -1,12 +1,9 @@
 from pandas import DataFrame
 import duckdb
-from typing import List
-from functools import reduce
 
 from dcd.interfaces.dc import IDC
 from dcd.interfaces.dc_detector import IDCDetector
-from dcd.types.predicate import Predicate, PREDICATE_OPERATOR, get_PREDICATE_OPERATOR_by_key
-from dcd.types.common import PairIdList, AdjacencyList
+from dcd.types.common import PairIdList
 
 class DCDetector(IDCDetector):
   
@@ -26,9 +23,6 @@ class DCDetector(IDCDetector):
     return pairs
   
   def __dc_predicates_to_SQL_query(self, dc: IDC):
-    # return """
-    #   SELECT DISTINCT t1.ID, t2.ID FROM T AS t1, T AS t2 WHERE t1.salary > t2.salary AND t1.hiring_year > t2.hiring_year AND t1.id <> t2.id;
-    # """
     
     scalar_predicates = list(filter(lambda p: not p.is_relational, dc.get_predicates()))
     relational_predicates = [p for p in dc.get_predicates() if p not in scalar_predicates]
@@ -61,7 +55,7 @@ class DCDetector(IDCDetector):
         use_AND_clause = True
         sql_query += f" t1.{sps.left_side.col_name_or_value} {sps.operator.value} {sps.right_side.col_name_or_value}"
     
-    sql_query += " AND t1.id <> t2.id"
+    # sql_query += " AND t1.id <> t2.id"
 
     sql_query += ";"
 

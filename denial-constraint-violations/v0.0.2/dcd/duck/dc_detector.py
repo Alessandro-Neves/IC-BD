@@ -1,12 +1,9 @@
 from pandas import DataFrame
 import duckdb
-from typing import List
-from functools import reduce
 
 from dcd.interfaces.dc import IDC
 from dcd.interfaces.dc_detector import IDCDetector
-from dcd.types.predicate import Predicate, PREDICATE_OPERATOR, get_PREDICATE_OPERATOR_by_key
-from dcd.types.common import PairIdList, AdjacencyList
+from dcd.types.common import PairIdList
 
 class DCDetector(IDCDetector):
   
@@ -26,6 +23,11 @@ class DCDetector(IDCDetector):
     return pairs
   
   def __dc_predicates_to_SQL_query(self, dc: IDC):
+    # return """
+    # SELECT t1.id as id1, t2.id as id2
+    # FROM T t1
+    # JOIN T t2 ON t1.salary > t2.salary AND t1.hiring_year > t2.hiring_year AND t1.salary > 37800;
+    # """
     scalar_predicates = list(filter(lambda p: not p.is_relational, dc.get_predicates()))
     relational_predicates = [p for p in dc.get_predicates() if p not in scalar_predicates]
     

@@ -7,7 +7,7 @@ from dcd.duck.dc_detector_sql import DCDetector as DuckDistinticDCDetector
 from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
 DC_FILE = 'testdatas/dcs/tax_dc1.txt'
-DATASET_FILE = 'testdatas/dirty_datasets/tax_1000000.csv'
+DATASET_FILE = 'testdatas/temp_datasets/tax_1000000.csv'
 
 detector = DuckDCDetector()
 

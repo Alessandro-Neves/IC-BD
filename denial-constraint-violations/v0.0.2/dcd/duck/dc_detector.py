@@ -18,7 +18,7 @@ class DCDetector(IDCDetector):
     
     pairs = []
     for i, t in violations.iterrows():
-      pairs.append((int(t['_id_1']), int(t['_id_2'])))
+      pairs.append((int(t['_id1_']), int(t['_id2_'])))
       
     return pairs
   
@@ -37,7 +37,7 @@ class DCDetector(IDCDetector):
     same_targets_rps = list(filter(lambda p: not p.has_diff_target, relational_predicates))
     diff_targets_rps = [p for p in relational_predicates if p not in same_targets_rps]
     
-    sql_query = "SELECT t1._id_ as _id_1, t2._id_ as _id_2 FROM T t1 JOIN T t2"
+    sql_query = "SELECT t1._id_ as _id1_, t2._id_ as _id2_ FROM T t1 JOIN T t2"
     
     if not bool(diff_targets_rps):
       sql_query += " ON t1._id_ = t2._id_"

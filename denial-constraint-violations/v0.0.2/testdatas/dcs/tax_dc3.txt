@@ -1,0 +1,1 @@
+t1.State = t2.State,t1.HasChild = t2.HasChild,t1.ChildExemp <> t2.ChildExemp

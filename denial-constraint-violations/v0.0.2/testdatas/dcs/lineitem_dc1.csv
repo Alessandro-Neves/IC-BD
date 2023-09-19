@@ -1,1 +1,0 @@
-t1.receiptdate>=t2.shipdate,t1.shipdate<=t2.receiptdate

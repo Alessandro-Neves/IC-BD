@@ -1,0 +1,1 @@
+t1.City <> t2.City,t1.Zip = t2.Zip

@@ -1,1 +1,0 @@
-t1.Origin==t2.Destination,t1.Destination==t2.Origin,t1.Distance<>t2.Distance

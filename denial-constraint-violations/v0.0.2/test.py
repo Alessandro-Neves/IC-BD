@@ -6,21 +6,16 @@ from dcd.duck.dc_detector import DCDetector as DuckDCDetector
 from dcd.duck.dc_detector_sql import DCDetector as DuckDistinticDCDetector
 from dcd.polars.dc_detector import DCDetector as PolarsDCDetector
 
-# exit(0)
-NOISY = True
-ALIAS = '1000'
+DC_FILE = 'testdatas/dcs/tax_dc1.txt'
+DATASET_FILE = 'testdatas/dirty_datasets/tax_1000000.csv'
 
-DC_FILE = 'testdatas/dcs/employees_dc.txt'
-DATASET_FILE = f'testdatas/dirty_datasets/employees_{ALIAS}.csv' if NOISY else f'testdatas/employees_{ALIAS}.csv'
+detector = DuckDCDetector()
 
 detectors = [
-  DCDetector(),
-  PolarsDCDetector(),
   DuckDCDetector(),
-  DuckDistinticDCDetector()
 ]
 
-names = ["Pandas", "Polars", "Duck JOIN", "Duck DISTINCT"]
+names = ["Duck JOIN"]
 
 for i, detector in enumerate(detectors):
   print(f"{names[i]}: ")

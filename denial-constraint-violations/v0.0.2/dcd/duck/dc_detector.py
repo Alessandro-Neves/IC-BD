@@ -18,13 +18,13 @@ class DCDetector(IDCDetector):
     
     pairs = []
     for i, t in violations.iterrows():
-      pairs.append((int(t['id1']), int(t['id2'])))
+      pairs.append((int(t['_id_1']), int(t['_id_2'])))
       
     return pairs
   
   def __dc_predicates_to_SQL_query(self, dc: IDC):
     # return """
-    # SELECT t1.id as id1, t2.id as id2
+    # SELECT t1._id_ as id1, t2._id_ as id2
     # FROM T t1
     # JOIN T t2 ON t1.salary > t2.salary AND t1.hiring_year > t2.hiring_year AND t1.salary > 37800;
     # """
@@ -37,10 +37,10 @@ class DCDetector(IDCDetector):
     same_targets_rps = list(filter(lambda p: not p.has_diff_target, relational_predicates))
     diff_targets_rps = [p for p in relational_predicates if p not in same_targets_rps]
     
-    sql_query = "SELECT t1.id as id1, t2.id as id2 FROM T t1 JOIN T t2"
+    sql_query = "SELECT t1._id_ as _id_1, t2._id_ as _id_2 FROM T t1 JOIN T t2"
     
     if not bool(diff_targets_rps):
-      sql_query += " ON t1.id = t2.id"
+      sql_query += " ON t1._id_ = t2._id_"
 
     if bool(diff_targets_rps):
       for rps in diff_targets_rps:
@@ -67,7 +67,7 @@ class DCDetector(IDCDetector):
           sql_query += f" AND t1.{sps.left_side.col_name_or_value} {sps.operator.value} {sps.right_side.col_name_or_value}"
 
     if not bool(scalar_predicates) and not bool(same_targets_rps):
-          sql_query += " AND t1.id <> t2.id"
+          sql_query += " AND t1._id_ <> t2._id_"
 
     sql_query += ";"
 

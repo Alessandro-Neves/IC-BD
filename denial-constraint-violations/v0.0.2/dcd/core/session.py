@@ -15,6 +15,7 @@ class Session():
   
   def __init__(self, data_address: str, dc_reader: IDCReader, dc_detector: IDCDetector) -> None:
     self.data = read_csv(data_address)
+    self.data.insert(0, '_id_', self.data.index)
     
     self.dc = dc_reader.pop_dc()
     self.dc_detector = dc_detector
@@ -26,7 +27,7 @@ class Session():
     return self.violations
   
   def get_clean_cells(self) -> DataFrame:
-    return self.data[~self.data['id'].isin([it[0] for it in self.violations])]
+    return self.data[~self.data['_id_'].isin([it[0] for it in self.violations])]
   
   def get_noisy_cells(self) -> DataFrame:
-    return self.data[self.data['id'].isin([it[0] for it in self.violations])]
+    return self.data[self.data['_id_'].isin([it[0] for it in self.violations])]

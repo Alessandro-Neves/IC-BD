@@ -37,7 +37,7 @@ class DCDetector(IDCDetector):
       if bool(diff_targets_rps):
         violations = self.__filter_by_diff_target_predicates(targets, df, diff_targets_rps)
         
-    adjacency_list = [(int(t['id']), t['targets']) for i , t in violations.iterrows()] # type: ignore
+    adjacency_list = [(int(t['_id_']), t['targets']) for i , t in violations.iterrows()] # type: ignore
     
     adjacency_list_with_some = list(filter(lambda t: bool(t[1]), adjacency_list))  # type: ignore
     
@@ -72,7 +72,7 @@ class DCDetector(IDCDetector):
     res = df[reduce(lambda x, y: x & y, conditions)]
     
     for i, line in res.iterrows():
-      res.at[i, 'targets'].append(int(line['id']))
+      res.at[i, 'targets'].append(int(line['_id_']))
       
     return res
   
@@ -92,9 +92,9 @@ class DCDetector(IDCDetector):
                   (t[rp.left_side.col_name_or_value], df, rp.right_side.col_name_or_value) 
                   for rp in rel_predicates]
       
-      conditions.append(df['id'] != t['id'])
+      conditions.append(df['_id_'] != t['_id_'])
       
-      violations_ids = df[reduce(lambda x, y: x & y, conditions)]['id'].to_list()
+      violations_ids = df[reduce(lambda x, y: x & y, conditions)]['_id_'].to_list()
       
       if len(violations_ids) > 0:
         targets.at[i, 'targets'].extend(violations_ids)
@@ -117,11 +117,11 @@ class DCDetector(IDCDetector):
                 (rp.left_side.col_name_or_value, df, rp.right_side.col_name_or_value) 
                 for rp in rel_predicates]
     
-    conditions.append(df['id'].isin(targets['id']))
+    conditions.append(df['_id_'].isin(targets['_id_']))
     
     res = df[reduce(lambda x, y: x & y, conditions)]
         
     for i, line in res.iterrows():
-      res.at[i, 'targets'].append(int(line['id'])) # type: ignore
+      res.at[i, 'targets'].append(int(line['_id_'])) # type: ignore
       
     return res

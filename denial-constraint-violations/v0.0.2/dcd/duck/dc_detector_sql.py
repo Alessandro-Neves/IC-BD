@@ -18,7 +18,7 @@ class DCDetector(IDCDetector):
     
     pairs = []
     for i, t in violations.iterrows():
-      pairs.append((int(t['id1']), int(t['id2'])))
+      pairs.append((int(t['_id_1']), int(t['_id_2'])))
       
     return pairs
   
@@ -30,7 +30,7 @@ class DCDetector(IDCDetector):
     same_targets_rps = list(filter(lambda p: not p.has_diff_target, relational_predicates))
     diff_targets_rps = [p for p in relational_predicates if p not in same_targets_rps]
     
-    sql_query = "SELECT DISTINCT t1.id as id1, t2.id as id2 FROM T AS t1, T AS t2 WHERE"
+    sql_query = "SELECT DISTINCT t1._id_ as _id_1, t2._id_ as _id_2 FROM T AS t1, T AS t2 WHERE"
 
     use_AND_clause = False
     

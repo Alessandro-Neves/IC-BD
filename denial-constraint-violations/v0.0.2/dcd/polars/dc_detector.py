@@ -28,7 +28,7 @@ class DCDetector(IDCDetector):
     if bool(scalar_predicates):
       targets = self.__filter_by_scalar_predicates(dfp, scalar_predicates)
       if not targets.is_empty():
-        same_targets_violations_ids.extend(targets['id'].to_pandas().tolist())
+        same_targets_violations_ids.extend(targets['_id_'].to_pandas().tolist())
     
     use_violations_itself_ids = False
     
@@ -43,7 +43,7 @@ class DCDetector(IDCDetector):
         targets = self.__filter_by_same_target_predicates(targets, dfp, same_targets_rps)
         
         if not targets.is_empty():
-          same_targets_violations_ids.extend(targets['id'].to_pandas().tolist())
+          same_targets_violations_ids.extend(targets['_id_'].to_pandas().tolist())
         
       if bool(diff_targets_rps):
         [violations_main_ids, violations_pairs_diff] = self.__filter_by_diff_target_predicates(targets, dfp, diff_targets_rps)
@@ -112,16 +112,16 @@ class DCDetector(IDCDetector):
                   (t[rp.left_side.col_name_or_value], df, rp.right_side.col_name_or_value) 
                   for rp in rel_predicates]
       
-      conditions.append(pl.col('id') != t['id'])
+      conditions.append(pl.col('_id_') != t['_id_'])
       
       
-      violations_ids = df.filter(reduce(lambda x, y: x & y, conditions))['id'].to_pandas().tolist()
+      violations_ids = df.filter(reduce(lambda x, y: x & y, conditions))['_id_'].to_pandas().tolist()
       
       # if not bool(violations_ids):
       #   targets = targets.filter(pl.col("id") != t['id'])
       if bool(violations_ids):
-        violations_pairs.extend((t['id'], v) for v in violations_ids)
-        violations_main_ids.append(t['id'])
+        violations_pairs.extend((t['_id_'], v) for v in violations_ids)
+        violations_main_ids.append(t['_id_'])
       
     return [violations_main_ids, violations_pairs]
   
@@ -140,7 +140,7 @@ class DCDetector(IDCDetector):
                 for rp in rel_predicates]
     
     # conditions.append(df['id'].isin(targets['id']))
-    conditions.append(pl.col('id').is_in(targets['id']))
+    conditions.append(pl.col('_id_').is_in(targets['_id_']))
     
     res = df.filter(reduce(lambda x, y: x & y, conditions))
         

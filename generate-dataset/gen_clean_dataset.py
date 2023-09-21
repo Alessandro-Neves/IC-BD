@@ -9,40 +9,52 @@ def generate_bonus():
 def apply_x_function(tupla, df):
   
   # t1.salary > t2.salary, t1.hiring_year > t2.hiring_year
-  p_cond_a = (tupla['salary'] > df['salary']) & (tupla['hiring_year'] > df['hiring_year'])
-  p_cond_a_inv = (tupla['salary'] < df['salary']) & (tupla['hiring_year'] < df['hiring_year'])
+  p_cond_a = (tupla['salary'] > df['salary']) & (tupla['hiring_year'] > df['hiring_year']) & (tupla['occupation'] == df['occupation'])
+  p_cond_a_inv = (tupla['salary'] < df['salary']) & (tupla['hiring_year'] < df['hiring_year']) & (tupla['occupation'] == df['occupation'])
   
   if not df[p_cond_a].empty or not df[p_cond_a_inv].empty:
     return False
   
-    # Substitua esta lógica pela sua função x
-    # Neste exemplo, retornaremos True para todas as tuplas
   return True
 
 # Leitura dos arquivos com nomes e sobrenomes
 with open('names.txt', 'r') as nomes_file:
-    nomes = [line.strip() for line in nomes_file]
+  nomes = [line.strip() for line in nomes_file]
 
 with open('surnames.txt', 'r') as sobrenomes_file:
-    sobrenomes = [line.strip() for line in sobrenomes_file]
+  sobrenomes = [line.strip() for line in sobrenomes_file]
+    
+with open('occupations.txt', 'r') as occupations_file:
+  occupations = [line.strip() for line in occupations_file]
 
 # Número de tuplas desejado (L)
-num_tuples = 40000
+num_tuples = 15000
 
 # Inicialização do DataFrame
-data = {'id': [], 'name': [], 'salary': [], 'bonus': [], 'hiring_year': [], 'dismissing_year': []}
+data = {'id': [], 'name': [], 'salary': [], 'bonus': [], 'hiring_year': [], 'dismissing_year': [], 'occupation': []}
 
+df = pd.DataFrame(data)
 # Geração das tuplas
 id_counter = 0
-while len(data['id']) < num_tuples:
+while id_counter < num_tuples:
     print(f"gen {id_counter}")
+    id = id_counter
     name = f"{random.choice(nomes)}-{random.choice(sobrenomes)}"
     salary = round(random.uniform(1320.00, 37800.80), 2)
-    hiring_year = random.randint(1990, 2023)
+    hiring_year = random.randint(1980, 2023)
     dismissing_year = random.randint(hiring_year, 2023)
     bonus = generate_bonus()
+    occupation = random.choice(occupations)
 
-    tupla = {'id': id_counter, 'name': name, 'salary': salary, 'bonus': bonus, 'hiring_year': hiring_year, 'dismissing_year': dismissing_year}
+    tupla = {
+      'id': id, 
+      'name': name, 
+      'salary': salary, 
+      'bonus': bonus, 
+      'hiring_year': hiring_year, 
+      'dismissing_year': dismissing_year,
+      'occupation': occupation
+    }
 
     # t1.salary < t1.bonus
     cond_a = tupla['salary'] < tupla['bonus']
@@ -54,14 +66,17 @@ while len(data['id']) < num_tuples:
       continue
   
     # Aplicar a função x à tupla
-    if apply_x_function(tupla, pd.DataFrame(data)):
+    if apply_x_function(tupla, df):
         # Se a função x retornar True, adicione a tupla ao DataFrame
-        for key, value in tupla.items():
-            data[key].append(value)
+        # for key, value in tupla.items():
+        #     data[key].append(value)
+        # id_counter += 1
+        
+        df.loc[len(df)] = [id, name, salary, bonus, hiring_year, dismissing_year, occupation]
         id_counter += 1
 
 # Criar o DataFrame
-df = pd.DataFrame(data)
+# df = pd.DataFrame(data)
 
 # Salvar o DataFrame em um arquivo CSV
 df.to_csv('dataset.csv', index=False)

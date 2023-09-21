@@ -1,1 +1,5 @@
 temporary test datasets folder
+
+Origin,Destination,OriginCity,DestinationCity,Passengers,Seats,Flights,Distance,FlyDate,OriginPopulation,DestinationPopulation
+DFW,LRD,Dallas-TX,Laredo-TX,50,66,1,396,199811,9475022,186798
+LRD,DFW,Laredo-TX,Dallas-TX,1162,1452,33,394,200808,235937,12602170

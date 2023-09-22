@@ -9,10 +9,12 @@ from dcd.tools.dataset_operations import DatasetOps
 ROOT_PATH = 'testdatas'
 
 configs = [
-  {'dataset': 'employees_40000.csv', 'dcs': ['employees_dc.txt']},
-  {'dataset': 'tax_1000000.csv', 'dcs': ['tax_dc1.txt', 'tax_dc2.txt']},
+  # {'dataset': 'employees_40000.csv', 'dcs': ['employees_dc.txt']},
+  # {'dataset': 'tax_1000000.csv', 'dcs': ['tax_dc1.txt', 'tax_dc2.txt']},
   # {'dataset': 'lineitem_1000000.csv', 'dcs': ['lineitem_dc1.txt', 'lineitem_dc2.txt', 'lineitem_dc3.txt']},
-  {'dataset': 'lineorder_1000000.csv', 'dcs': ['lineorder_dc1.txt']},
+  # {'dataset': 'lineorder_1000000.csv', 'dcs': ['lineorder_dc1.txt']},
+  {'dataset': 'flights_100000.csv', 'dcs': ['flights_dc2.txt']},
+  
 ]
 
 dc_detector = DuckDCDetector()

@@ -26,6 +26,7 @@ class DatasetOps():
     dfc.insert(0, '_id_', dfc.index)
 
     vio_pairs = dc_detector.find_violations(dfc, dc)
+    
     ids = [id for tupla in vio_pairs for id in tupla]
     
     return list(set(ids))
@@ -51,13 +52,20 @@ class DatasetOps():
     for dc in dcs:
       violations = dc_detector.find_violations(df, dc)
       
-      for violation in violations:
-        if violation[0] not in dropped_indexes:
-          df.drop(violation[0], inplace=True)
-          dropped_indexes.append(violation[0])
+      ids = [id for tupla in violations for id in tupla]
+      
+      ids_to_rm = list(set(ids))
+      
+      for i, id_index in enumerate(ids_to_rm):
+        print(f"{i}/{len(ids_to_rm)}", id_index)
+        df.drop(id_index, inplace=True)
         
-        if violation[1] not in dropped_indexes:
-          df.drop(violation[1], inplace=True)
-          dropped_indexes.append(violation[1])
+        # if violation[0] not in dropped_indexes:
+          
+        #   dropped_indexes.append(violation[0])
+        
+        # if violation[1] not in dropped_indexes:
+        #   df.drop(violation[1], inplace=True)
+        #   dropped_indexes.append(violation[1])
           
     return df.drop('_id_', axis=1)

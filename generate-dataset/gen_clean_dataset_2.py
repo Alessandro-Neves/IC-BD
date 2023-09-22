@@ -27,7 +27,7 @@ with open('surnames.txt', 'r') as sobrenomes_file:
 with open('occupations.txt', 'r') as occupations_file:
   occupations = [line.strip() for line in occupations_file]
 
-num_tuples = 25000
+num_tuples = 60000
 
 df = pd.read_csv('dataset.csv')
 
@@ -63,8 +63,8 @@ while id_counter < num_tuples:
 
   if apply_x_function(tupla, df):
       
-      df.loc[len(df)] = [id, name, salary, bonus, hiring_year, dismissing_year, occupation]
-      id_counter += 1
+    df.loc[len(df)] = [id, name, salary, bonus, hiring_year, dismissing_year, occupation]
+    id_counter += 1
 
-  if (id_counter % 100) == 0:
-    df.to_csv('dataset.csv', index=False)
+    if (id_counter % 100) == 0:
+      df.to_csv('dataset.csv', index=False)

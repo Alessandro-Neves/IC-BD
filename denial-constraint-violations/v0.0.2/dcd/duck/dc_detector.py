@@ -20,6 +20,10 @@ class DCDetector(IDCDetector):
     for i, t in violations.iterrows():
       pairs.append((int(t['_id1_']), int(t['_id2_'])))
       
+      
+    # print(sql_query)
+    # print(pairs[0])
+    
     return pairs
   
   def __dc_predicates_to_SQL_query(self, dc: IDC):
@@ -71,6 +75,6 @@ class DCDetector(IDCDetector):
 
     sql_query += ";"
 
-    print(sql_query)
+    # print(sql_query)
 
     return sql_query

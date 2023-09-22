@@ -13,7 +13,7 @@ WITH_EQUALITY_OPERATORS = [
   PREDICATE_OPERATOR.LTE
 ]
 
-NOISY_PERCENTAGE = 0.01
+NOISY_PERCENTAGE = 10
 
 dc = DCReader(DC_FILE).pop_dc()
 
@@ -32,7 +32,7 @@ print("Try generate violations: ", desired_noisy_qtd)
 
 iterations = 0
 
-for it in range(1000000):
+for it in range(100000):
   iterations = it
   if (num_violations > desired_noisy_qtd - NOISY_RANGE_ERROR):
     break
@@ -70,11 +70,9 @@ for it in range(1000000):
         num_violations = vio_qtd_dfc
       else:
         dfc = df.copy()
-      
-    # print(num_violations)
 
 print("Iterations: ", iterations)
 print("Violations: ",DatasetOps.count_violations(df, dc))
 print("Tuples on some violation: ", len(DatasetOps.tuples_on_violations(df, dc)))
 
-df.to_csv(f'tax_noisy_{NOISY_PERCENTAGE}.csv', index=False) # type: ignore
+df.to_csv(f'flights_noisy_{NOISY_PERCENTAGE}.csv', index=False) # type: ignore

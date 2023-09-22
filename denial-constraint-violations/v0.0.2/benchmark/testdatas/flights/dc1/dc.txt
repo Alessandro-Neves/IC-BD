@@ -1,0 +1,1 @@
+t1.Origin = t2.Origin,t1.Destination = t2.Destination,t1.Flights > t2.Flights,t1.Passengers < t2.Passengers

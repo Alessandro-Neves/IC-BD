@@ -2,4 +2,4 @@ CREATE TABLE T AS SELECT * FROM 'employees_40000.csv';
 EXPLAIN SELECT t1.id as id1, t2.id as id2  FROM T t1 JOIN T t2  ON t1.salary > t2.salary  AND t1.hiring_year > t2.hiring_year  AND t1.id <> t2.id;
 
 CREATE TABLE Tax AS SELECT * FROM 'tax_1000000.csv';
-SELECT COUNT(*) as result FROM Tax1MI t1 JOIN Tax1MI t2 ON t1.State = t2.State AND t1.Salary > t2.Salary AND t1.Rate < t2.Rate;
+SELECT COUNT(*) as result FROM Tax t1 JOIN Tax t2 ON t1.State = t2.State AND t1.Salary > t2.Salary AND t1.Rate < t2.Rate;

@@ -1,0 +1,1 @@
+t1.salary > t2.salary,t1.hiring_year > t2.hiring_year,t1.occupation = t2.occupation

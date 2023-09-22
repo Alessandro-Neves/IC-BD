@@ -1,0 +1,1 @@
+t1.AreaCode = t2.AreaCode,t1.Phone = t2.Phone

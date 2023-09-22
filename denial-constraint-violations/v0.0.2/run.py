@@ -13,7 +13,11 @@ detectors = [
   DuckDCDetector(),
 ]
 
-names = ["Pandas", "Polars", "Duck JOIN"]
+names = [
+  # "Pandas", 
+  # "Polars", 
+  "Duck JOIN"
+]
 
 for i, detector in enumerate(detectors):
   print(f"{names[i]}: ")

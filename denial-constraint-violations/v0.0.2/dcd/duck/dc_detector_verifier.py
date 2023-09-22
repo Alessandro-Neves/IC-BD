@@ -9,6 +9,8 @@ class DCDetectorVerifier():
 
     sql_query = self.__dc_predicates_to_SQL_query(dc)
     
+    # print(sql_query)
+    
     con = duckdb.connect(database=':memory:') # type: ignore
     con.register('T', df)
     violations = con.execute(sql_query).df()

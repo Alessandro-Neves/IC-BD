@@ -4,7 +4,7 @@ from dcd.core.dc_reader import DCReader
 from dcd.duck.dc_detector import DCDetector as DuckDCDetector
 # from dcd.duck.dc_detector_verifier import DCDetectorVerifier as DuckDCDetector
 
-from dcd.tools.verify_dataset import DatasetOps
+from dcd.tools.dataset_operations import DatasetOps
 
 ROOT_PATH = 'testdatas'
 

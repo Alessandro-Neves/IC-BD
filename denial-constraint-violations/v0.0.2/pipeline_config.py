@@ -26,4 +26,4 @@ FLIGHTS_DC1_CONFIG = {
   'root_path': 'benchmark/testdatas/flights/dc1'
 }
 
-USE_CONFIG = TAX_DC2_CONFIG
+USE_CONFIG = TAX_DC1_CONFIG

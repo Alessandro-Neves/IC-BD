@@ -27,7 +27,7 @@ with open('surnames.txt', 'r') as sobrenomes_file:
 with open('occupations.txt', 'r') as occupations_file:
   occupations = [line.strip() for line in occupations_file]
 
-num_tuples = 60000
+num_tuples = 1000000
 
 df = pd.read_csv('dataset.csv')
 
